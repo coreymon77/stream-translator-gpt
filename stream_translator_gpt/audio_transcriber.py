@@ -42,7 +42,8 @@ class AudioTranscriber(LoopWorkerBase):
                 task.translation = result
             else:
                 task.transcript = result
-            if print_result:
+            # Only print transcripts here; translations are printed by ResultExporter
+            if print_result and not is_translation:
                 if output_timestamps:
                     timestamp_text = f'{sec2str(task.time_range[0])} --> {sec2str(task.time_range[1])}'
                     print(timestamp_text + ' ' + result)
