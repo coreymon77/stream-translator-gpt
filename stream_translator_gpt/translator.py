@@ -22,7 +22,7 @@ from .llm_translator import LLMClint, ParallelTranslator, SerialTranslator
 from .result_exporter import ResultExporter
 
 
-def main(url, format, cookies, cookies_from_browser, input_proxy, device_index, device_recording_interval,
+def main(url, format, cookies, cookies_from_browser, input_proxy, user_agent, device_index, device_recording_interval,
          min_audio_length, max_audio_length, target_audio_length, continuous_no_speech_threshold,
          disable_dynamic_no_speech_threshold, prefix_retention_length, vad_threshold, disable_dynamic_vad_threshold,
          model, language, use_faster_whisper, use_simul_streaming, use_openai_transcription_api,
@@ -167,6 +167,7 @@ def main(url, format, cookies, cookies_from_browser, input_proxy, device_index, 
             cookies=cookies,
             cookies_from_browser=cookies_from_browser,
             proxy=input_proxy,
+            user_agent=user_agent,
             output_queue=getter_to_slicer_queue,
         )
     else:
@@ -212,6 +213,10 @@ def cli():
                         default=None,
                         help='Use the specified HTTP/HTTPS/SOCKS proxy for yt-dlp, '
                         'e.g. http://127.0.0.1:7890.')
+    parser.add_argument('--user_agent',
+                        type=str,
+                        default=None,
+                        help='Custom user agent string for yt-dlp, useful for sites with user agent checks.')
     parser.add_argument(
         '--device_index',
         type=int,
