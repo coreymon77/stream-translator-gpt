@@ -3,6 +3,12 @@ import queue
 import sys
 import time
 
+# Fix Windows console encoding for Unicode output
+if sys.platform == 'win32':
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+
 from .common import ApiKeyPool, start_daemon_thread, is_url, WARNING, ERROR
 from .audio_getter import StreamAudioGetter, LocalFileAudioGetter, DeviceAudioGetter
 from .audio_slicer import AudioSlicer
